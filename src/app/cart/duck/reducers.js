@@ -1,12 +1,11 @@
 import types from './types'
 
 const data = localStorage.getItem("cart");
-console.log(data);
 let INITIAL_STATE;
-
+//localStorage.clear("cart");
 if(data){
   INITIAL_STATE = {
-    cartProducts: []
+    cartProducts: JSON.parse(data)
   }
 }
 else INITIAL_STATE = {

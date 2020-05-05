@@ -17,6 +17,8 @@ const styles = {
 
 const ProductsContainer = (props) =>{
 
+  
+
   return ( 
     <div style={styles.container}>
       {props.productsState.products.map(product => 
@@ -24,9 +26,10 @@ const ProductsContainer = (props) =>{
             {product.title}
             <button onClick={() => {
               props.add(product);
-              let old = localStorage.getItem("cart"); 
-              if(old) localStorage.setItem("cart", JSON.stringify(old.concat(product)));
-              else localStorage.setItem("cart", JSON.stringify(product));
+              let array = JSON.parse(localStorage.getItem("cart"))
+              if(array) array.push(product)
+              else array = [product];
+              localStorage.setItem("cart", JSON.stringify(array));
             }}>Dodaj do koszyka</button>
           </div>
       )}
