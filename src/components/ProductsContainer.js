@@ -24,8 +24,9 @@ const ProductsContainer = (props) =>{
             {product.title}
             <button onClick={() => {
               props.add(product);
-              let old = JSON.parse(localStorage.getItem("cart")); 
-              localStorage.setItem("cart", JSON.stringify(old.concat(product)));
+              let old = localStorage.getItem("cart"); 
+              if(old) localStorage.setItem("cart", JSON.stringify(old.concat(product)));
+              else localStorage.setItem("cart", JSON.stringify(product));
             }}>Dodaj do koszyka</button>
           </div>
       )}
