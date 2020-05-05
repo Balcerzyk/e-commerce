@@ -1,8 +1,19 @@
 import types from './types'
 
-const INITIAL_STATE = {
+const data = localStorage.getItem("cart");
+
+let INITIAL_STATE;
+
+if(data){
+  INITIAL_STATE = {
+    cartProducts: JSON.parse(data)
+  }
+}
+else {
+  INITIAL_STATE = {
     cartProducts: []
   }
+}
 
 const cartReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
