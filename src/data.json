@@ -4,7 +4,7 @@
             "id": 0,
             "title": "Piłka",
             "desc": "najlepsza piłka do gry w piłkę nożną",
-            "img": "",
+            "img": "./images/bql_logo.svg",
             "price": "220"
         },
         {

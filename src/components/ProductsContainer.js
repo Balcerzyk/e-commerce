@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import actions from '../app/cart/duck/actions'
+import Product from './Product'
 
 const styles = {
   container: {
@@ -17,20 +17,11 @@ const styles = {
 
 const ProductsContainer = (props) =>{
 
-  
-
   return ( 
     <div style={styles.container}>
       {props.productsState.products.map(product => 
           <div style={styles.productDiv}>
-            {product.title}
-            <button onClick={() => {
-              props.add(product);
-              let array = JSON.parse(localStorage.getItem("cart"))
-              if(array) array.push(product)
-              else array = [product];
-              localStorage.setItem("cart", JSON.stringify(array));
-            }}>Dodaj do koszyka</button>
+            <Product product={product} />
           </div>
       )}
     </div>
@@ -40,8 +31,4 @@ const mapStateToProps = state => ({
     productsState: state.products
 })
 
-const mapDispatchToProps = dispatch => ({
-  add: (cartProduct) => dispatch(actions.add(cartProduct))
-})
-
-export default connect(mapStateToProps, mapDispatchToProps) (ProductsContainer);
+export default connect(mapStateToProps, {}) (ProductsContainer);
