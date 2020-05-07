@@ -52,10 +52,6 @@ const Product = (props) =>{
       <div style={{gridArea: 'button'}}>
         <button style={styles.button} onClick={() => {
           props.add(props.product);
-          let array = JSON.parse(localStorage.getItem("cart"))
-          if(array) array.push(props.product)
-          else array = [props.product];
-          localStorage.setItem("cart", JSON.stringify(array));
           }}>Dodaj do koszyka
         </button>
       </div>
