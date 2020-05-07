@@ -2,6 +2,7 @@ import React from 'react';
 import actions from '../app/cart/duck/actions'
 import { connect } from 'react-redux';
 import Img from 'react-image'
+import {BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 const styles = {
   main: {
@@ -38,7 +39,9 @@ const Product = (props) =>{
         <a style={styles.title}>{props.product.title}</a>
       </div>
       <div style={{gridArea: 'img'}}>
-        <img style={styles.img} src={require("../images/redCircle.svg")}/>
+        <Link to={"/product?id=" + props.product.id}>
+          <img style={styles.img} src={require("../images/redCircle.svg")}/>
+        </Link>
       </div>
       <div style={{gridArea: 'price'}}>
         <a style={styles.price}>{props.product.price}</a>

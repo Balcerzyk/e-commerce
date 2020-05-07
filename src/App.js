@@ -1,6 +1,7 @@
 import React from 'react'
 import Home from './views/home.js'
 import Cart from './views/cart.js'
+import ProductSite from './views/productSite.js'
 import {BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Header from './components/Header.js';
 
@@ -14,6 +15,9 @@ class App extends React.Component {
         <Switch>
           <Route path="/cart">
             <Cart />
+          </Route>
+          <Route path="/product">
+            <ProductSite />
           </Route>
           <Route path="/">
             <Home />
