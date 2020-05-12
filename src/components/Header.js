@@ -14,7 +14,7 @@ const styles = {
     gridTemplateAreas: "'logo categories cart'",
     backgroundColor: '#4AA6FF',
     margin: 0,
-    
+    boxShadow: '2px 2px 5px 1px rgba(0,0,0,0.22)',
   },
   logo: {
     gridArea: 'logo',

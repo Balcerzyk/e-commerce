@@ -15,6 +15,8 @@ const styles = {
     backgroundColor: 'white',
     margin:'15px',
     padding: '15px',
+    borderRadius: '15px',
+    boxShadow: '4px 4px 16px 1px rgba(0,0,0,0.15)',
   },
   title: {
     gridArea: 'title',
@@ -37,11 +39,19 @@ const styles = {
   desc: {
     gridArea: 'desc',
   },
-  button: {
+  buttonDiv: {
     gridArea: 'button',
     margin: 'auto',
   },
-  
+  button: {
+    margin: '20px 20px auto 10px', 
+    padding: '5px 30px', 
+    backgroundColor: '#4aa6ff', 
+    color: 'white', 
+    border: 'none',
+    borderRadius: '5px',
+    cursor: 'pointer',
+  },
 }
 
 const Product = (props) =>{
@@ -61,8 +71,8 @@ const Product = (props) =>{
       <div style={styles.desc}>
         <a>{props.product.desc}</a>
       </div>
-      <div style={styles.button}>
-        <button onClick={() => {
+      <div style={styles.buttonDiv}>
+        <button style={styles.button} onClick={() => {
           props.add(props.product);
           }}>Dodaj do koszyka
         </button>

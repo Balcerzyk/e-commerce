@@ -5,10 +5,11 @@ import { Provider } from 'react-redux'
 import store from './store'
 
 document.body.style.margin = 0;
+document.body.style.backgroundColor = '#eeeeee';
 
 ReactDOM.render(
   <Provider store = {store}>
-    <App />
+    <App/>
   </Provider>,
   document.getElementById('root')
 );

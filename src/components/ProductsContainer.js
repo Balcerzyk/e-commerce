@@ -4,10 +4,10 @@ import Product from './Product'
 
 const styles = {
   container: {
+    marginTop: '20px',
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'center',
-    backgroundColor: '#eeeeee',
   },
 }
 
