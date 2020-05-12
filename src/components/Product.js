@@ -1,8 +1,8 @@
 import React from 'react';
 import actions from '../app/cart/duck/actions'
 import { connect } from 'react-redux';
-import Img from 'react-image'
 import {BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import Image from '../components/img';
 
 const styles = {
   main: {
@@ -10,24 +10,36 @@ const styles = {
     width: '300px',
     display: 'grid',
     gridTemplateColumns: '100%',
-    gridTemplateRows: '10% 35% 10% 40% 5%',
+    gridTemplateRows: '15% 45% 10% 20% 10%',
     gridTemplateAreas: "'title' 'img' 'price' 'desc' 'button'",
-    backgroundColor: 'gray', 
+    backgroundColor: 'white',
+    margin:'15px',
+    padding: '15px',
   },
   title: {
-
+    gridArea: 'title',
+    margin: 'auto',
+    fontSize: 20,
   },
   img: {
-    height: '90%',
+    gridArea: 'img',
+    textAlign: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   price: {
-
+    gridArea: 'price',
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#cc3300',
+    margin: 'auto auto auto 0',
   },
   desc: {
-
+    gridArea: 'desc',
   },
   button: {
-
+    gridArea: 'button',
+    margin: 'auto',
   },
   
 }
@@ -35,22 +47,22 @@ const styles = {
 const Product = (props) =>{
   return(
     <div style={styles.main}>
-      <div style={{gridArea: 'title'}}>
-        <a style={styles.title}>{props.product.title}</a>
+      <div style={styles.title}>
+        <a>{props.product.title}</a>
       </div>
-      <div style={{gridArea: 'img'}}>
+      <div style={styles.img}>
         <Link to={"/product?id=" + props.product.id}>
-          <img style={styles.img} src={require("../images/redCircle.svg")}/>
+          <Image src={props.product.img} style={{maxHeight: '80%', maxWidth: '100%', margin: 'auto'}}/>
         </Link>
       </div>
-      <div style={{gridArea: 'price'}}>
-        <a style={styles.price}>{props.product.price}</a>
+      <div style={styles.price}>
+        <a>{props.product.price} zł</a>
       </div>
-      <div style={{gridArea: 'desc'}}>
-        <a style={styles.desc}>{props.product.desc}</a>
+      <div style={styles.desc}>
+        <a>{props.product.desc}</a>
       </div>
-      <div style={{gridArea: 'button'}}>
-        <button style={styles.button} onClick={() => {
+      <div style={styles.button}>
+        <button onClick={() => {
           props.add(props.product);
           }}>Dodaj do koszyka
         </button>

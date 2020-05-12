@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import actions from '../app/cart/duck/actions'
+import {BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 const styles = {
   container: {
@@ -30,7 +31,7 @@ const styles = {
 }
 
 const ProductsContainer = (props) =>{
-  //localStorage.clear("cart")
+
   let products = props.cartState.cartProducts;
   return(
     <div>
@@ -50,6 +51,7 @@ const ProductsContainer = (props) =>{
       <button onClick={() => {
         props.reset();
       }}>Usuń wszystko</button>
+      <Link to={"/checkout"}><button>Złóż zamówienie</button></Link> 
     </div>
   )
 }
