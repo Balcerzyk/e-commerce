@@ -71,6 +71,21 @@ const styles = {
 const ProductsContainer = (props) =>{
 
   let products = props.cartState.cartProducts;
+
+  const buttons = () => {
+    if(props.cartState.cartProducts.length > 0){
+      return (
+        <div style={{width: '100%', margin: 'auto', display: 'flex'}}>
+          <button style={styles.removeAllButton} onClick={() => {
+            props.reset();
+          }}>Usuń wszystko</button>
+          <Link to={"/checkout"}> <button style={styles.checkoutButton}>Złóż zamówienie</button></Link> 
+        </div>
+      )
+    }
+    else return <h3 style={{margin: '30px auto', display: 'table', ontSize: '20px', fontWeight: 'bold', color: '#cc3300'}}>Brak produktów w koszyku</h3>
+  }
+  
   return(
     <div>
       <Link to={"/"}> <button style={styles.return}>Powrót</button></Link>
@@ -90,12 +105,7 @@ const ProductsContainer = (props) =>{
             }}>Usuń</button>
           </div>
         )}
-        <div style={{width: '100%', margin: 'auto', display: 'flex'}}>
-          <button style={styles.removeAllButton} onClick={() => {
-            props.reset();
-          }}>Usuń wszystko</button>
-          <Link to={"/checkout"}> <button style={styles.checkoutButton}>Złóż zamówienie</button></Link> 
-        </div>
+        {buttons()}
       </div>
     </div>
   )
