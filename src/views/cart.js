@@ -93,7 +93,7 @@ const ProductsContainer = (props) =>{
         {props.cartState.cartProducts.map((product, index) => 
           <div style={styles.container}>
             <Link to={"/product?id=" + product.id} style={{textAlign: 'center'}}>
-              <Image src={product.img} style={{maxHeight: '100%', maxWidth: '100%', margin: 'auto'}}/>
+              
             </Link>
             <div style={styles.titleAndPrice}>
             <Link to={"/product?id=" + product.id} style={{textDecoration: 'none'}}><a style={{fontSize: 20, color: 'black'}}>{product.title}</a><br/></Link>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import actions from '../app/cart/duck/actions'
+import {BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 const styles = {
   container: {
@@ -44,16 +45,17 @@ class Checkout extends React.Component {
       city: '',
       postCode: '',
       address: '',
+      products: props.cartState.cartProducts
     };
   }
 
-  changeFirstName = (event) => this.setState({firstName: event.target.value});
-  changelastName = (event) => this.setState({lastName: event.target.value});
-  changeemail = (event) => this.setState({email: event.target.value});
-  changecountry = (event) => this.setState({country: event.target.value});
-  changeCity = (event) => this.setState({city: event.target.value});
-  changePostcode = (event) => this.setState({postCode: event.target.value});
-  changeAddress = (event) => this.setState({address: event.target.value});
+  changeFirstname = (event) => this.setState({...this.state, firstName: event.target.value});
+  changeLastname = (event) => this.setState({...this.state, lastName: event.target.value});
+  changeEmail = (event) => this.setState({...this.state, email: event.target.value});
+  changeCountry = (event) => this.setState({...this.state, country: event.target.value});
+  changeCity = (event) => this.setState({...this.state, city: event.target.value});
+  changePostcode = (event) => this.setState({...this.state, postCode: event.target.value});
+  changeAddress = (event) => this.setState({...this.state, address: event.target.value});
 
   handleSubmit = (event) => {
     alert('Podano następujące imię: ' + this.state.value);
@@ -63,52 +65,76 @@ class Checkout extends React.Component {
   form = () => {
     return(
       <div style={styles.container}>
-        <form>
           <div style={styles.personal}>
             <label>
             <a style={styles.labelText}>Imię:</a><br/>
-              <input style={styles.input} type="text" required value={this.state.firstName} onChange={this.changeFirstName} /><br/>
+              <input style={styles.input} type="text" required value={this.state.firstName} onChange={this.changeFirstname} /><br/>
             </label>
             <label>
             <a style={styles.labelText}>Nazwisko:</a><br/>
-              <input style={styles.input} type="text" required name="lastName" /><br/>
+              <input style={styles.input} type="text" required value={this.state.lastName} onChange={this.changeLastname} /><br/>
             </label>
             <label>
             <a style={styles.labelText}>Email:</a><br/>
-              <input style={styles.input} type="text" required name="email" /><br/>
+              <input style={styles.input} type="text" required value={this.state.email} onChange={this.changeEmail} /><br/>
             </label>
           </div>
           <div style={styles.personal}>
             <label>
             <a style={styles.labelText}>Kraj:</a><br/>
-              <input style={styles.input} type="text" required name="country" /><br/>
+              <input style={styles.input} type="text" required value={this.state.country} onChange={this.changeCountry} /><br/>
             </label>
             <label>
             <a style={styles.labelText}>Miasto:</a><br/>
-              <input style={styles.input} type="text" required name="city" /><br/>
+              <input style={styles.input} type="text" required value={this.state.city} onChange={this.changeCity} /><br/>
             </label>
             <label>
             <a style={styles.labelText}>Kod pocztowy:</a><br/>
-              <input style={styles.input} type="text" required name="postCode" /><br/>
+              <input style={styles.input} type="text" required value={this.state.postCode} onChange={this.changePostcode} /><br/>
             </label>
             <label>
             <a style={styles.labelText}>Adres:</a><br/>
-              <input style={styles.input} type="text" required name="address" /><br/>
+              <input style={styles.input} type="text" required value={this.state.address} onChange={this.changeAddress} /><br/>
             </label>
-            <input style={styles.button} type="submit" value="Dalej" onClick={() => alert('lel')} />
+            
+            <button style={styles.button} onClick={() => this.setState({...this.state, display: "sum"})}>Dalej</button>
           </div>
-        </form>
       </div>
     )
   }
 
-  sum = () => {
+  sum = (props) => {
     return(
       <div>
-        {console.log(this.state.display)}
-        <button onClick={() => this.setState({display: 'form'})}>Powrót</button>
-        sum
-      </div>
+        <div>
+            <button onClick={() => this.setState({display: 'form'})}>Powrót</button>
+            <div style={styles.sum}>
+              <a style={styles.sumCat}>Imię:</a><a  style={styles.sumData}>{this.state.firstName}</a>
+              <a style={styles.labelText}>Nazwisko:</a><a  style={styles.sumData}>{this.state.lastName}</a>
+              <a style={styles.labelText}>Email:</a><a  style={styles.sumData}>{this.state.email}</a>
+              <a style={styles.labelText}>Kraj:</a><a  style={styles.sumData}>{this.state.country}</a>
+              <a style={styles.labelText}>Miasto:</a><a  style={styles.sumData}>{this.state.city}</a>
+              <a style={styles.labelText}>Kod pocztowy:</a><a  style={styles.sumData}>{this.state.postCode}</a>
+              <a style={styles.labelText}>Adres:</a><a  style={styles.sumData}>{this.state.address}</a>
+            </div>
+        </div>
+        <div>
+          <div style={{width: '50%', maxWidth: '800px', margin: 'auto'}}>
+            {this.state.products.map((product, index) => 
+              <div style={styles.container}>
+                <Link to={"/product?id=" + product.id} style={{textAlign: 'center'}}>
+                  
+                </Link>
+                <div style={styles.titleAndPrice}>
+                <Link to={"/product?id=" + product.id} style={{textDecoration: 'none'}}><a style={{fontSize: 20, color: 'black'}}>{product.title}</a><br/></Link>
+                  <a style={{fontWeight: 'bold', color: '#cc3300'}}>{product.price} zł</a>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+        <button style={styles.button} onClick={() => this.setState({...this.state, display: "payment"})}>Zamawiam i płacę</button>
+      </div>  
     )
   }
 
@@ -129,4 +155,9 @@ class Checkout extends React.Component {
   }
 }
 
-export default Checkout
+const mapStateToProps = state => ({
+  cartState: state.cart
+})
+
+
+export default connect(mapStateToProps, {}) (Checkout);

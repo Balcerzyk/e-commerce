@@ -62,7 +62,7 @@ const Product = (props) =>{
       </div>
       <div style={styles.img}>
         <Link to={"/product?id=" + props.product.id}>
-          <Image src={props.product.img} style={{maxHeight: '80%', maxWidth: '100%', margin: 'auto'}}/>
+          <img src={props.product.img} style={{maxHeight: '80%', maxWidth: '100%', margin: 'auto'}}/>
         </Link>
       </div>
       <div style={styles.price}>
