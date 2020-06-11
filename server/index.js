@@ -4,7 +4,7 @@ const cors = require('cors')
 
 const db = require('./database')
 const productRouter = require('./routes/product-router')
-
+console.log
 const app = express()
 const apiPort = 3000
 
@@ -13,10 +13,6 @@ app.use(cors())
 app.use(bodyParser.json())
 
 db.on('error', console.error.bind(console, 'MongoDB connection error:'))
-
-app.get('/', (req, res) => {
-    res.send('Hello World!')
-})
 
 app.use('/api', productRouter)
 
