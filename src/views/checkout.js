@@ -6,8 +6,15 @@ import {BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 const styles = {
   container: {
     width: '80%',
-    margin: 'auto',
+    margin: '20px auto',
 
+  },
+  bigContainter: {
+    margin: "auto",
+    width: "60%",
+    display: "grid",
+    gridTemplateColumns: "1fr 1fr",
+    gridTemplateAreas: "'data products'",
   },
   personal: {
     backgroundColor: '#dddddd',
@@ -31,6 +38,39 @@ const styles = {
     margin: 'auto auto auto 0',
     textAlign: 'left',
   },
+  table: {
+    padding: "20px",
+    margin: "auto",
+    backgroundColor: "white",
+    width: "40%",
+    display: "grid",
+    gridTemplateColumns: "50% 50%",
+    border: "solid 1px",
+    gridTemplateRoes: "50px",
+    gridGap: "20px 0",
+    textAlign: "left",
+    gridTemplateAreas: 
+    "'paymentTitleCaption paymentTitle' 'accountNumberCaption accountNumber' 'recipientCaption recipient' 'priceCapiton price'"
+  },
+  acceptButton: {
+    margin: 'auto',
+    display: "flex",
+    backgroundColor: '#33cc33',
+    color: 'white',
+    border: 'none',
+    padding: '5px 10px',
+    borderRadius: '5px',
+    cursor: 'pointer',
+  },
+  return: {
+    margin: '20px auto auto 20px', 
+    padding: '5px 30px', 
+    backgroundColor: '#4aa6ff', 
+    color: 'white', 
+    border: 'none',
+    borderRadius: '5px',
+    cursor: 'pointer',
+  },
 }
 
 class Checkout extends React.Component {
@@ -45,7 +85,7 @@ class Checkout extends React.Component {
       city: '',
       postCode: '',
       address: '',
-      products: props.cartState.cartProducts
+      products: props.cartState.cartProducts,
     };
   }
 
@@ -62,9 +102,32 @@ class Checkout extends React.Component {
     event.preventDefault();
   }
 
+  checkCart = () => {
+    console.log(this.props.cartState.cartProducts.length)
+    if(!this.props.cartState.cartProducts.length) window.location.href = "/";
+  }
+
+  sumPriceFunction = () => {
+    let price = 0;
+    for(let i=0; i<this.state.products.length; i++) {
+      price += this.state.products[i].price;
+    }
+    return price;
+  }
+
+  getProductsIds  = () => {
+    let idString = "";
+    for(let i=0; i<this.state.products.length; i++) {
+      idString += this.state.products[i]._id + "| |";
+      console.log(idString)
+    }
+    return idString;
+  }
+
   form = () => {
     return(
       <div style={styles.container}>
+        {this.checkCart()}
           <div style={styles.personal}>
             <label>
             <a style={styles.labelText}>Imię:</a><br/>
@@ -97,7 +160,7 @@ class Checkout extends React.Component {
               <input style={styles.input} type="text" required value={this.state.address} onChange={this.changeAddress} /><br/>
             </label>
             
-            <button style={styles.button} onClick={() => this.setState({...this.state, display: "sum"})}>Dalej</button>
+            <button style={styles.button} onClick={() => {this.setState({...this.state, display: "sum"})}}>Dalej</button>
           </div>
       </div>
     )
@@ -105,25 +168,24 @@ class Checkout extends React.Component {
 
   sum = (props) => {
     return(
-      <div>
-        <div>
-            <button onClick={() => this.setState({display: 'form'})}>Powrót</button>
-            <div style={styles.sum}>
-              <a style={styles.sumCat}>Imię:</a><a  style={styles.sumData}>{this.state.firstName}</a>
-              <a style={styles.labelText}>Nazwisko:</a><a  style={styles.sumData}>{this.state.lastName}</a>
-              <a style={styles.labelText}>Email:</a><a  style={styles.sumData}>{this.state.email}</a>
-              <a style={styles.labelText}>Kraj:</a><a  style={styles.sumData}>{this.state.country}</a>
-              <a style={styles.labelText}>Miasto:</a><a  style={styles.sumData}>{this.state.city}</a>
-              <a style={styles.labelText}>Kod pocztowy:</a><a  style={styles.sumData}>{this.state.postCode}</a>
-              <a style={styles.labelText}>Adres:</a><a  style={styles.sumData}>{this.state.address}</a>
-            </div>
-        </div>
-        <div>
-          <div style={{width: '50%', maxWidth: '800px', margin: 'auto'}}>
+      <div style={{margin: "auto"}}>
+        {this.sumPriceFunction}
+        <button onClick={() => this.setState({display: 'form'})} style={styles.return}>Powrót</button>
+        <div style={styles.bigContainter}>
+          <div style={{gridArea: "data", display: "grid"}}>
+            <a style={{margin: "0 auto 20px 0"}}>Imię:</a><a  style={styles.sumData}>{this.state.firstName}</a><br/>
+            <a style={{margin: "10px 0"}}>Nazwisko:</a><a  style={styles.sumData}>{this.state.lastName}</a><br/>
+            <a style={{margin: "10px 0"}}>Email:</a><a  style={styles.sumData}>{this.state.email}</a><br/>
+            <a style={{margin: "10px 0"}}>Kraj:</a><a  style={styles.sumData}>{this.state.country}</a><br/>
+            <a style={{margin: "10px 0"}}>Miasto:</a><a  style={styles.sumData}>{this.state.city}</a><br/>
+            <a style={{margin: "10px 0"}}>Kod pocztowy:</a><a  style={styles.sumData}>{this.state.postCode}</a><br/>
+            <a style={{margin: "10px 0"}}>Adres:</a><a  style={styles.sumData}>{this.state.address}</a><br/>
+          </div>
+          <div style={{margin: '0 auto', gridArea: "products", textAlign: "right"}}>
             {this.state.products.map((product, index) => 
               <div style={styles.container}>
                 <Link to={"/product?id=" + product.id} style={{textAlign: 'center'}}>
-                  
+                    
                 </Link>
                 <div style={styles.titleAndPrice}>
                 <Link to={"/product?id=" + product.id} style={{textDecoration: 'none'}}><a style={{fontSize: 20, color: 'black'}}>{product.title}</a><br/></Link>
@@ -133,7 +195,7 @@ class Checkout extends React.Component {
             )}
           </div>
         </div>
-        <button style={styles.button} onClick={() => this.setState({...this.state, display: "payment"})}>Zamawiam i płacę</button>
+        <button style={styles.acceptButton} onClick={() => {{this.props.reset()}; this.setState({...this.state, display: "payment"})}}>Zamawiam i płacę</button>
       </div>  
     )
   }
@@ -141,9 +203,29 @@ class Checkout extends React.Component {
   payment = () => {
     return(
       <div>
-        {console.log(this.state.display)}
-        <button onClick={() => this.setState({display: 'sum'})}>Powrót</button>
-        payment
+        <div style={{textAlign: "center", margin: "20px"}}>Dane do przelewu</div>
+        <div style={styles.table}>
+          <div style={{gridArea: "paymentTitleCaption"}}>Tytuł:</div> 
+          <div style={{gridArea: "paymentTitle"}}>{this.state.email + Date.now()}</div>
+          <div style={{gridArea: "accountNumberCaption"}}>Numer konta:</div> 
+          <div style={{gridArea: "accountNumber"}}>2424 2424 2424 2424 2424 2424</div>
+          <div style={{gridArea: "recipientCaption"}}>Odbiorca:</div> 
+          <div style={{gridArea: "recipient"}}>Michał Balcerski</div> 
+          <div style={{gridArea: "priceCapiton"}}>Kwota:</div> 
+          <div style={{gridArea: "price"}}>{this.sumPriceFunction()}</div>  
+        </div>
+        <div style={{textAlign: "center", margin: "40px"}}>Przygotowanie paczki rozpoczniemy zaraz po zaksięgowaniu wpłaty.</div>
+        <form action="http://formspree.io/orzechos26@gmail.com" method="POST">
+          <input type="hidden" name="products" value={this.getProductsIds()}/>
+          <input type="hidden" name="_replyto" value={this.state.email}/>
+          <input type="hidden" name="name" value={this.state.firstName}/>
+          <input type="hidden" name="lastname" value={this.state.lastName}/>
+          <input type="hidden" name="country" value={this.state.country}/>
+          <input type="hidden" name="city" value={this.state.city}/>
+          <input type="hidden" name="postcode" value={this.state.postCode}/>
+          <input type="hidden" name="address" value={this.state.address}/>
+          <input type="submit" value="Potwierdzam" style={styles.acceptButton}/>
+        </form>
       </div>
     )
   }
@@ -159,5 +241,8 @@ const mapStateToProps = state => ({
   cartState: state.cart
 })
 
+const mapDispatchToProps = dispatch => ({
+  reset: () => dispatch(actions.reset()),
+})
 
-export default connect(mapStateToProps, {}) (Checkout);
+export default connect(mapStateToProps, mapDispatchToProps) (Checkout);
