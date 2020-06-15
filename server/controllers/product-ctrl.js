@@ -1,8 +1,9 @@
 const Product = require('../database/models/model-products')
+var fs = require('fs');
 
 createProduct = (req, res) => {
     const body = req.body
-    console.log(req.body)
+
     if (!body) {
         return res.status(400).json({
             success: false,
@@ -11,7 +12,7 @@ createProduct = (req, res) => {
     }
 
     const product = new Product(body)
-
+    console.log(product)
     if (!product) {
         return res.status(400).json({ success: false, error: err })
     }
@@ -117,10 +118,18 @@ getProducts = async (req, res) => {
     }).catch(err => console.log(err))
 }
 
+uploadImg = async (req, res) => {
+    let base64Image = req.body.res.split(';base64,').pop();
+    fs.writeFile('server/public/images/' + req.body.filename, base64Image, {encoding: 'base64'}, function(err) {
+        console.log('File created');
+    });
+}
+
 module.exports = {
     createProduct,
     updateProduct,
     deleteProduct,
     getProducts,
     getProductById,
+    uploadImg,
 }

@@ -25,9 +25,8 @@ function ProductsContainer (props) {
     }
 
   return ( 
-    (loading) ? <a>lel</a> :
+    (loading) ? <a>Brak produktów</a> :
     <div style={styles.container}>
-      {console.log()}
       {props.productsState.products.map(product =>   
             <Product product={product} />
       )}

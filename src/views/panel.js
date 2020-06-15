@@ -2,16 +2,36 @@ import React from 'react'
 import api from '../api'
 
 export default class Panel extends React.Component {
+
+    async encodeImageFileAsURL(element) {
+        var file = element;
+        var reader = new FileReader();
+        reader.onloadend = function() {
+            let res = reader.result;
+            let filename = file.name;
+            console.log(filename)
+            let uploadPayload = {res, filename};
+            api.uploadImage(uploadPayload).then(res => {
+                window.alert(`Picture added`)
+            });
+        }
+        reader.readAsDataURL(file);
+        return reader;
+      }
+
     send() {
         let title = document.getElementById("title").value;
         let desc = document.getElementById("desc").value;
         let price = document.getElementById("price").value;
-        let img = document.getElementById("img").value;
+        let file = document.getElementById("img").files[0];
+        let img = file.name;
 
         let payload = {title, desc, price, img};
         api.insertProduct(payload).then(res => {
             window.alert(`Product inserted successfully`)
         });
+
+        this.encodeImageFileAsURL(file);
     }
 
     delete() {

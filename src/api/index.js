@@ -9,6 +9,7 @@ export const getAllProducts = () => api.get(`/products`)
 export const updateProductById = (id, payload) => api.put(`/product/${id}`, payload)
 export const deleteProductById = id => api.delete(`/product/${id}`)
 export const getProductById = id => api.get(`/product/${id}`)
+export const uploadImage = payload => api.post(`/upload`, payload)
 
 const apis = {
     insertProduct,
@@ -16,6 +17,7 @@ const apis = {
     updateProductById,
     deleteProductById,
     getProductById,
+    uploadImage
 }
 
 export default apis

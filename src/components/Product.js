@@ -61,8 +61,8 @@ const Product = (props) =>{
         <a>{props.product.title}</a>
       </div>
       <div style={styles.img}>
-        <Link to={"/product?id=" + props.product.id}>
-          <img src={props.product.img} style={{maxHeight: '80%', maxWidth: '100%', margin: 'auto'}}/>
+        <Link to={"/product?id=" + props.product._id}>
+          <img src={"http://127.0.0.1:3000/images/" + props.product.img} style={{maxHeight: '80%', maxWidth: '100%', margin: 'auto'}}/>
         </Link>
       </div>
       <div style={styles.price}>

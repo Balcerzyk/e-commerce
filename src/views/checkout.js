@@ -103,7 +103,6 @@ class Checkout extends React.Component {
   }
 
   checkCart = () => {
-    console.log(this.props.cartState.cartProducts.length)
     if(!this.props.cartState.cartProducts.length) window.location.href = "/";
   }
 
@@ -119,7 +118,6 @@ class Checkout extends React.Component {
     let idString = "";
     for(let i=0; i<this.state.products.length; i++) {
       idString += this.state.products[i]._id + "| |";
-      console.log(idString)
     }
     return idString;
   }
