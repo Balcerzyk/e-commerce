@@ -51,7 +51,7 @@ export default class Panel extends React.Component {
 
   render() {
     return (
-      <div>
+      <div style={{textAlign: "center", marginTop: "50px"}}>
           {this.list()}
         <a>DODAJ PRODUKT</a><br/>
         <div>

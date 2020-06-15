@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import Product from '../components/Product'
+
 
 const ProductSite = (props) =>{
   let idItem = null;

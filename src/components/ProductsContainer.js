@@ -27,12 +27,17 @@ function ProductsContainer (props) {
   return ( 
     (loading) ? <a>Brak produktów</a> :
     <div style={styles.container}>
-      {props.productsState.products.map(product =>   
-            <Product product={product} />
+      {props.productsState.products.map((product, index) =>   
+            retProduct(product, index)
       )}
     </div>
   )
 }
+
+function retProduct(product, index) {
+  if(index) return <Product product={product}  />
+}
+
 const mapStateToProps = state => ({
     productsState: state.products
 })

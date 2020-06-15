@@ -6,7 +6,7 @@ import Image from '../components/img';
 
 const styles = {
   container: {
-    height: '70px',
+    height: '100px',
     width: '100%',
     maxWidth: '800px',
     margin: '10px auto',
@@ -92,11 +92,11 @@ const ProductsContainer = (props) =>{
       <div style={{width: '50%', maxWidth: '800px', margin: 'auto'}}>
         {props.cartState.cartProducts.map((product, index) => 
           <div style={styles.container}>
-            <Link to={"/product?id=" + product.id} style={{textAlign: 'center'}}>
+            <Link to={"/product?id=" + product._id} style={{textAlign: 'center'}}>
               <img src={"http://127.0.0.1:3000/images/" + product.img} style={{maxHeight: '70px', maxWidth: '100%', margin: 'auto'}}/>
             </Link>
             <div style={styles.titleAndPrice}>
-            <Link to={"/product?id=" + product.id} style={{textDecoration: 'none'}}><a style={{fontSize: 20, color: 'black'}}>{product.title}</a><br/></Link>
+            <Link to={"/product?id=" + product._id} style={{textDecoration: 'none'}}><a style={{fontSize: 20, color: 'black'}}>{product.title}</a><br/></Link>
               <a style={{fontWeight: 'bold', color: '#cc3300'}}>{product.price} zł</a>
             </div>
             <button style={styles.button} onClick={() => {

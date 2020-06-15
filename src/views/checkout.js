@@ -2,12 +2,15 @@ import React from 'react';
 import { connect } from 'react-redux';
 import actions from '../app/cart/duck/actions'
 import {BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Table from 'react-bootstrap/Table'
+
 
 const styles = {
   container: {
     width: '80%',
     margin: '20px auto',
-
+    
   },
   bigContainter: {
     margin: "auto",
@@ -127,38 +130,38 @@ class Checkout extends React.Component {
       <div style={styles.container}>
         {this.checkCart()}
           <div style={styles.personal}>
-            <label>
+            <label style={{display: "block"}}>
             <a style={styles.labelText}>Imię:</a><br/>
               <input style={styles.input} type="text" required value={this.state.firstName} onChange={this.changeFirstname} /><br/>
             </label>
-            <label>
+            <label style={{display: "block"}}>
             <a style={styles.labelText}>Nazwisko:</a><br/>
               <input style={styles.input} type="text" required value={this.state.lastName} onChange={this.changeLastname} /><br/>
             </label>
-            <label>
+            <label style={{display: "block"}}>
             <a style={styles.labelText}>Email:</a><br/>
               <input style={styles.input} type="text" required value={this.state.email} onChange={this.changeEmail} /><br/>
             </label>
           </div>
           <div style={styles.personal}>
-            <label>
+            <label style={{display: "block"}}>
             <a style={styles.labelText}>Kraj:</a><br/>
               <input style={styles.input} type="text" required value={this.state.country} onChange={this.changeCountry} /><br/>
             </label>
-            <label>
+            <label style={{display: "block"}}>
             <a style={styles.labelText}>Miasto:</a><br/>
               <input style={styles.input} type="text" required value={this.state.city} onChange={this.changeCity} /><br/>
             </label>
-            <label>
+            <label style={{display: "block"}}>
             <a style={styles.labelText}>Kod pocztowy:</a><br/>
               <input style={styles.input} type="text" required value={this.state.postCode} onChange={this.changePostcode} /><br/>
             </label>
-            <label>
+            <label style={{display: "block"}}>
             <a style={styles.labelText}>Adres:</a><br/>
               <input style={styles.input} type="text" required value={this.state.address} onChange={this.changeAddress} /><br/>
             </label>
             
-            <button style={styles.button} onClick={() => {this.setState({...this.state, display: "sum"})}}>Dalej</button>
+            <button style={styles.acceptButton} onClick={() => {this.setState({...this.state, display: "sum"})}}>Dalej</button>
           </div>
       </div>
     )
@@ -170,21 +173,48 @@ class Checkout extends React.Component {
         {this.sumPriceFunction}
         <button onClick={() => this.setState({display: 'form'})} style={styles.return}>Powrót</button>
         <div style={styles.bigContainter}>
-          <div style={{gridArea: "data", display: "grid"}}>
-            <a style={{margin: "0 auto 20px 0"}}>Imię:</a><a  style={styles.sumData}>{this.state.firstName}</a><br/>
-            <a style={{margin: "10px 0"}}>Nazwisko:</a><a  style={styles.sumData}>{this.state.lastName}</a><br/>
-            <a style={{margin: "10px 0"}}>Email:</a><a  style={styles.sumData}>{this.state.email}</a><br/>
-            <a style={{margin: "10px 0"}}>Kraj:</a><a  style={styles.sumData}>{this.state.country}</a><br/>
-            <a style={{margin: "10px 0"}}>Miasto:</a><a  style={styles.sumData}>{this.state.city}</a><br/>
-            <a style={{margin: "10px 0"}}>Kod pocztowy:</a><a  style={styles.sumData}>{this.state.postCode}</a><br/>
-            <a style={{margin: "10px 0"}}>Adres:</a><a  style={styles.sumData}>{this.state.address}</a><br/>
-          </div>
-          <div style={{margin: '0 auto', gridArea: "products", textAlign: "right"}}>
+        <Table striped bordered hover style={{width: "80%", margin: " 30px auto"}}>
+          <tbody>
+            <tr>
+              <td>Imię:</td>
+              <td>{this.state.firstName}</td>
+            </tr>
+            <tr>
+              <td>Nazwisko:</td>
+              <td>{this.state.lastName}</td>
+            </tr>
+            <tr>
+              <td>Email:</td>
+              <td>{this.state.email}</td>
+            </tr>
+            <tr>
+              <td>Kraj:</td>
+              <td>{this.state.country}</td>
+            </tr>
+            <tr>
+              <td>Miasto:</td>
+              <td>{this.state.city}</td>
+            </tr>
+            <tr>
+              <td>Kod pocztowy:</td>
+              <td>{this.state.postCode}</td>
+            </tr>
+            <tr>
+              <td>Adres:</td>
+              <td>{this.state.address}</td>
+            </tr>
+            
+          </tbody>
+        </Table>
+          
+          <div style={{margin: '15px auto', gridArea: "products"}}>
             {this.state.products.map((product, index) => 
-              <div style={styles.container}>
-                <Link to={"/product?id=" + product.id} style={{textAlign: 'center'}}>
-                    
-                </Link>
+              <div style={{display: "flex", width: "300px", margin: "15px auto"}}>
+                <div style={{marginRight: "20px"}}>
+                  <Link to={"/product?id=" + product.id} style={{textAlign: 'center'}}>
+                    <img src={"http://127.0.0.1:3000/images/" + product.img} style={{maxHeight: '70px', maxWidth: '100%', margin: 'auto'}}/>
+                  </Link>
+                </div>
                 <div style={styles.titleAndPrice}>
                 <Link to={"/product?id=" + product.id} style={{textDecoration: 'none'}}><a style={{fontSize: 20, color: 'black'}}>{product.title}</a><br/></Link>
                   <a style={{fontWeight: 'bold', color: '#cc3300'}}>{product.price} zł</a>
@@ -202,16 +232,28 @@ class Checkout extends React.Component {
     return(
       <div>
         <div style={{textAlign: "center", margin: "20px"}}>Dane do przelewu</div>
-        <div style={styles.table}>
-          <div style={{gridArea: "paymentTitleCaption"}}>Tytuł:</div> 
-          <div style={{gridArea: "paymentTitle"}}>{this.state.email + Date.now()}</div>
-          <div style={{gridArea: "accountNumberCaption"}}>Numer konta:</div> 
-          <div style={{gridArea: "accountNumber"}}>2424 2424 2424 2424 2424 2424</div>
-          <div style={{gridArea: "recipientCaption"}}>Odbiorca:</div> 
-          <div style={{gridArea: "recipient"}}>Michał Balcerski</div> 
-          <div style={{gridArea: "priceCapiton"}}>Kwota:</div> 
-          <div style={{gridArea: "price"}}>{this.sumPriceFunction()}</div>  
-        </div>
+        <Table striped bordered hover style={{width: "50%", margin: "auto"}}>
+          <tbody>
+            <tr>
+              <td>Tytuł:</td>
+              <td>{this.state.email + Date.now()}</td>
+            </tr>
+            <tr>
+              <td>Numer konta:</td>
+              <td>2424 2424 2424 2424 2424 2424</td>
+            </tr>
+            <tr>
+              <td>Odbiorca:</td>
+              <td>Michał Balcerski</td>
+            </tr>
+            <tr>
+              <td>Kwota:</td>
+              <td>{this.sumPriceFunction()}</td>
+            </tr>
+            
+          </tbody>
+        </Table>
+       
         <div style={{textAlign: "center", margin: "40px"}}>Przygotowanie paczki rozpoczniemy zaraz po zaksięgowaniu wpłaty.</div>
         <form action="http://formspree.io/orzechos26@gmail.com" method="POST">
           <input type="hidden" name="products" value={this.getProductsIds()}/>

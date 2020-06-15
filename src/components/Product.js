@@ -6,11 +6,11 @@ import Image from '../components/img';
 
 const styles = {
   main: {
-    height: '400px',
+    height: '500px',
     width: '300px',
     display: 'grid',
     gridTemplateColumns: '100%',
-    gridTemplateRows: '15% 45% 10% 20% 10%',
+    gridTemplateRows: '15% 40% 10% 20% 15%',
     gridTemplateAreas: "'title' 'img' 'price' 'desc' 'button'",
     backgroundColor: 'white',
     margin:'15px',
@@ -58,7 +58,9 @@ const Product = (props) =>{
   return(
     <div style={styles.main}>
       <div style={styles.title}>
-        <a>{props.product.title}</a>
+        <Link to={"/product?id=" + props.product._id}>
+          <a>{props.product.title}</a>
+        </Link>
       </div>
       <div style={styles.img}>
         <Link to={"/product?id=" + props.product._id}>
