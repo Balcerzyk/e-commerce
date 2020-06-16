@@ -35,7 +35,7 @@ function ProductsContainer (props) {
 }
 
 function retProduct(product, index) {
-  if(index) return <Product product={product}  />
+  if(index) return <Product product={product} key={index} />
 }
 
 const mapStateToProps = state => ({

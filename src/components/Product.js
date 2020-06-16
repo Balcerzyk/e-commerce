@@ -58,7 +58,7 @@ const Product = (props) =>{
     <div style={styles.main}>
       <div style={styles.title}>
         <Link to={"/product?id=" + props.product._id}>
-          <a>{props.product.title}</a>
+          {props.product.title}
         </Link>
       </div>
       <div style={styles.img}>

@@ -58,13 +58,13 @@ const Header = ({cartState}) =>{
       <Link to="/">
         <img src={logo} style={styles.logo}/> 
       </Link>
-      <Link to="/panel">
-        <a>Panel</a>
+      <Link to="/panel" style={{width: "50px", height: "30px"}}>
+        Panel
       </Link>
       <Link to="/cart" style={styles.cart}>
         <img src={cart} style={styles.cartIcon}/>
         <div style={styles.redCircleDiv}>
-          <a style={styles.counter}>{cartState.cartProducts.length}</a>
+          <div style={styles.counter}>{cartState.cartProducts.length}</div>
           <img src={redCircle} style={styles.redCircle}/>
         </div>  
       </Link>
