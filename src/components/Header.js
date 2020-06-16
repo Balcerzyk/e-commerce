@@ -58,6 +58,9 @@ const Header = ({cartState}) =>{
       <Link to="/">
         <img src={logo} style={styles.logo}/> 
       </Link>
+      <Link to="/panel">
+        <a>Panel</a>
+      </Link>
       <Link to="/cart" style={styles.cart}>
         <img src={cart} style={styles.cartIcon}/>
         <div style={styles.redCircleDiv}>

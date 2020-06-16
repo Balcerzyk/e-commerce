@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import actions from '../app/cart/duck/actions'
 import {BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import Image from '../components/img';
 
 const styles = {
   container: {

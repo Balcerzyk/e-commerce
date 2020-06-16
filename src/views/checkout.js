@@ -255,7 +255,7 @@ class Checkout extends React.Component {
         </Table>
        
         <div style={{textAlign: "center", margin: "40px"}}>Przygotowanie paczki rozpoczniemy zaraz po zaksięgowaniu wpłaty.</div>
-        <form action="http://formspree.io/orzechos26@gmail.com" method="POST">
+        <form action="http://formspree.io/ecomtest@onet.pl" method="POST">
           <input type="hidden" name="products" value={this.getProductsIds()}/>
           <input type="hidden" name="_replyto" value={this.state.email}/>
           <input type="hidden" name="name" value={this.state.firstName}/>
